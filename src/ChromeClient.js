@@ -14,11 +14,13 @@ module.exports = class ChromeClient {
         await this.webdriver.get('https://accounts.google.com/servicelogin');
         const usernameField = this.getElement('//*[@id="identifierId"]');
         await usernameField.sendKeys(username);
-        const nextButton = this.getElement('//*[@id="identifierNext"]/span/span');
-        await nextButton.click();
+        const usernameNextButton = this.getElement('//*[@id="identifierNext"]/span/span');
+        await usernameNextButton.click();
         await sleep(1000);
         const passwordField = this.getElement('//*[@id="password"]/div[1]/div/div[1]/input');
         await passwordField.sendKeys(password);
+        const passwordNextButton = this.getElement('//*[@id="passwordNext"]/span');
+        await (await passwordNextButton).click();
     }
 
     getElement(xpath) {
