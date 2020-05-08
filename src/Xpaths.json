@@ -1,0 +1,14 @@
+{
+    "url": {
+        "stackOverflowURL": "https://stackoverflow.com/users/login",
+        "duoURL": "https://duo.google.com"
+    },
+
+    "google_login": {
+        "stackOverflowNextButton": "//*[@id=\"openid-buttons\"]/button[1]",
+        "usernameField": "//*[@id=\"identifierId\"]",
+        "usernameNextButton": "//*[@id=\"identifierNext\"]/span/span",
+        "passwordField": "//*[@id=\"password\"]/div[1]/div/div[1]/input",
+        "passwordNextButton": "//*[@id=\"passwordNext\"]/span"
+    }
+}
