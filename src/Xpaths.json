@@ -1,7 +1,11 @@
 {
     "url": {
         "stackOverflowURL": "https://stackoverflow.com/users/login",
-        "duoURL": "https://duo.google.com"
+        "duoURL": "https://duo.google.com/?web&utm_source=marketing_page_button_main"
+    },
+
+    "duo_call": {
+        "searchField": "//*[@id=\"gb\"]/div[2]/div[2]/div[2]/form/div/div/div/div/div/div[1]"
     },
 
     "google_login": {

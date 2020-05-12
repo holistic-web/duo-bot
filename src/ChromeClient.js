@@ -43,8 +43,15 @@ module.exports = class ChromeClient {
 
         const passwordNextButton = this.getElement(Xpaths.google_login.passwordNextButton);
         await (await passwordNextButton).click();
+        await sleep(2000);
+    }
 
+    async call(name) {
         await this.goToURL(Xpaths.url.duoURL);
+        await sleep(2000);
+        const searchBar = this.getElement(Xpaths.duo_call.searchField);
+        await searchBar.sendKeys("Michael");
+
     }
 
     getElement(xpath) {
