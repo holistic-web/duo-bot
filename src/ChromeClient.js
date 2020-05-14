@@ -7,8 +7,16 @@ function sleep (time) {
 
 module.exports = class ChromeClient {
 
+
     async build() {
-        this.webdriver = await new Webdriver.Builder().forBrowser('chrome').build();
+        const chromeCapabilities = Webdriver.Capabilities.chrome();
+        await chromeCapabilities.set('goog:chromeOptions', {
+            'args': [
+                '--user-data-dir=/myUserData'
+            ]
+        })
+        this.webdriver = await new Webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build();
+        await this.goToURL(Xpaths.url.stackOverflowURL);
     }
 
     async login(username, password) {
@@ -42,15 +50,63 @@ module.exports = class ChromeClient {
         if (!success) throw new Error('Failed to find the password field');
 
         const passwordNextButton = this.getElement(Xpaths.google_login.passwordNextButton);
-        await (await passwordNextButton).click();
+        await passwordNextButton.click();
         await sleep(2000);
     }
 
     async call(name) {
         await this.goToURL(Xpaths.url.duoURL);
+
+
         await sleep(2000);
-        const searchBar = this.getElement(Xpaths.duo_call.searchField);
-        await searchBar.sendKeys("Michael");
+        const sleepTime=1000;
+        const retries = 30;
+        let success = false;
+        let attempt = 0;
+        while (!success && attempt < retries) {
+            await sleep(sleepTime);
+            try {
+                const searchBar = this.getElement(Xpaths.duo_call.searchField);
+                await searchBar.sendKeys(name);
+                console.log('entered keys');
+                success = true;
+            } catch (err) {
+                if (err.message.startsWith('element not interactable')) {
+                    attempt += 1;
+                } else {
+                    throw err;
+                }
+            }
+        }
+        if (!success) throw new Error('Failed to find the field');
+
+        const firstResult = this.getElement(Xpaths.duo_call.firstSearchResult);
+        await firstResult.click();
+
+        await sleep(3000);
+
+
+
+        const sleepTime=1000;
+        const retries = 30;
+        let success = false;
+        let attempt = 0;
+        while (!success && attempt < retries) {
+            await sleep(sleepTime);
+            try {
+                const voiceCallButton = this.getElement(Xpaths.duo_call.firstSearchResult);
+                await voiceCallButton.click();
+                console.log('clicked call button');
+                success = true;
+            } catch (err) {
+                if (err.message.startsWith('element not interactable')) {
+                    attempt += 1;
+                } else {
+                    throw err;
+                }
+            }
+        }
+        if (!success) throw new Error('Failed to find the field');
 
     }
 
@@ -62,5 +118,7 @@ module.exports = class ChromeClient {
     async goToURL(url) {
         await this.webdriver.get(url);
     }
+
+    //async waitToLoad
 
 }

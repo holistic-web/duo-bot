@@ -7,8 +7,7 @@ async function main() {
     try {
 
         await chromeClient.build();
-        await chromeClient.login(config.username, config.password);
-        await chromeClient.call('hello');
+        //await chromeClient.call('Michael');
 
     } catch (err) {
         console.log('err: ', err);

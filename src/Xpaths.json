@@ -5,7 +5,10 @@
     },
 
     "duo_call": {
-        "searchField": "//*[@id=\"gb\"]/div[2]/div[2]/div[2]/form/div/div/div/div/div/div[1]"
+        "searchField": "//*[@id=\"gb\"]/div[2]/div[2]/div[2]/form/div/div/div/div/div/div[1]/input[2]",
+        "firstSearchResult": "//*[@id=\"nngdp17\"]",
+        "voiceCallButton": "//*[@id=\"yDmH0d\"]/div[4]/div/div[2]/div[2]/div/div[2]"
+
     },
 
     "google_login": {
