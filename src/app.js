@@ -1,13 +1,12 @@
-const config = require('./config');
-const ChromeClient = require('./ChromeClient');
+const DuoClient = require('./clients/DuoClient');
 
-const chromeClient = new ChromeClient();
+const duoClient = new DuoClient();
 
 async function main() {
     try {
 
-        await chromeClient.build();
-        //await chromeClient.call('Michael');
+        await duoClient.build();
+        await duoClient.call('Michael');
 
     } catch (err) {
         console.log('err: ', err);
